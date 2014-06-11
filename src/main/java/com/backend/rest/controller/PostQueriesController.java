@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.UUID;
-
 /**
  * Created by alanw on 10/06/2014.
  */
@@ -32,7 +30,7 @@ public class PostQueriesController {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<Post> viewPost(@PathVariable String id) {
 
-        PostDetailsEvent details = postService.requestPostDetails(new RequestPostDetailsEvent(UUID.fromString(id)));
+        PostDetailsEvent details = postService.requestPostDetails(new RequestPostDetailsEvent(Long.parseLong(id)));
 
         if (!details.isEntityFound()) {
             return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);

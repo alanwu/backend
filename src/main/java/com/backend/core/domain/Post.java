@@ -4,14 +4,13 @@ import com.backend.core.events.posts.PostDetails;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by alanw on 10/06/2014.
  */
 public class Post {
 
-    private final UUID key;
+    private long id;
     private String text;
     private String photoUrl;
     private String musicName;
@@ -20,11 +19,15 @@ public class Post {
     private List<Comment> comments;
 
     public Post() {
-        this.key = UUID.randomUUID();
+
     }
 
-    public UUID getKey() {
-        return this.key;
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getText() {

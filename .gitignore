@@ -5,3 +5,4 @@ pom.xml.next
 release.properties
 .idea/
 backend.iml
+gs-spring-boot.iml

@@ -2,18 +2,16 @@ package com.backend.core.events.posts;
 
 import com.backend.core.events.CreatedEvent;
 
-import java.util.UUID;
-
 /**
  * Created by alanw on 10/06/2014.
  */
 public class PostCreatedEvent extends CreatedEvent {
 
-    private final UUID newPostKey;
+    private final long newPostId;
     private final PostDetails details;
 
-    public PostCreatedEvent(final UUID newOrderKey, final PostDetails details) {
-        this.newPostKey = newOrderKey;
+    public PostCreatedEvent(final long newPostId, final PostDetails details) {
+        this.newPostId = newPostId;
         this.details = details;
     }
 
@@ -21,8 +19,8 @@ public class PostCreatedEvent extends CreatedEvent {
         return details;
     }
 
-    public UUID getNewPostKey() {
-        return newPostKey;
+    public long getNewPostId() {
+        return newPostId;
     }
 
 }

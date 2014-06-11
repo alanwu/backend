@@ -1,29 +1,27 @@
 package com.backend.core.events.posts;
 
-import java.util.UUID;
-
 /**
  * Created by alanw on 10/06/2014.
  */
 public class PostDetails {
 
-    private UUID key;
+    private long id;
     private String text;
 
     public PostDetails() {
-        this.key = null;
+
     }
 
-    public PostDetails(UUID key) {
-        this.key = key;
+    public PostDetails(long id) {
+        this.id = id;
     }
 
-    public UUID getKey() {
-        return key;
+    public long getId() {
+        return id;
     }
 
-    public void setKey(UUID key) {
-        this.key = key;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getText() {

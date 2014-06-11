@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
+
 /**
  * Created by alanw on 10/06/2014.
  */
@@ -37,9 +39,8 @@ public class PostCommandsController {
         Post newPost = Post.fromPostDetails(postCreated.getDetails());
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(
-                builder.path("/posts/{id}")
-                        .buildAndExpand(postCreated.getNewPostKey().toString()).toUri());
+        URI location = builder.path("/posts/{id}").buildAndExpand(String.valueOf(postCreated.getNewPostId())).toUri();
+        headers.setLocation(location);
 
         return new ResponseEntity<Post>(newPost, headers, HttpStatus.CREATED);
     }
