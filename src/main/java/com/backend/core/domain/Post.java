@@ -93,4 +93,9 @@ public class Post {
 
         return post;
     }
+
+    public boolean canBeDeleted() {
+        return true;
+    }
+
 }
