@@ -1,7 +1,7 @@
 package com.backend.rest.controller.fixture;
 
-import com.backend.core.domain.User;
-import com.backend.core.events.users.UserDetails;
+import com.backend.core.domain.Post;
+import com.backend.core.events.posts.PostDetails;
 
 import java.util.UUID;
 
@@ -10,19 +10,27 @@ import java.util.UUID;
  */
 public class RestDataFixture {
 
-    public static User standardUser() {
-        User user = new User("alan", "wu");
+    public static final String MY_POST = "I'm in testing mood";
 
-        return user;
+    public static Post standardUser() {
+        Post post = new Post();
+        post.setText(MY_POST);
+
+        return post;
     }
 
-    public static UserDetails customKeyUserDetails(UUID key) {
-        UserDetails userdetails = new UserDetails(key);
+    public static PostDetails customKeyPostDetails(UUID key) {
+        PostDetails postDetails = new PostDetails(key);
+        postDetails.setText(MY_POST);
 
-        return userdetails;
-    }
-    public static UserDetails standardUserDetails() {
-        return customKeyUserDetails(UUID.randomUUID());
+        return postDetails;
     }
 
+    public static PostDetails standardPostDetails() {
+        return customKeyPostDetails(UUID.randomUUID());
+    }
+
+    public static String standardPostJSON() {
+        return "{\"text\": \"I'm in testing mood\"}";
+    }
 }

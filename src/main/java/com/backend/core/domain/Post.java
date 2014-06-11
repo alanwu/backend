@@ -1,31 +1,38 @@
 package com.backend.core.domain;
 
+import com.backend.core.events.posts.PostDetails;
+import org.springframework.beans.BeanUtils;
+
 import java.util.List;
 import java.util.UUID;
 
 /**
  * Created by alanw on 10/06/2014.
  */
-public class Mood {
+public class Post {
 
     private final UUID key;
-    private String description;
+    private String text;
     private String photoUrl;
     private String musicName;
     private String videoUrl;
     private User user;
     private List<Comment> comments;
 
-    public Mood() {
+    public Post() {
         this.key = UUID.randomUUID();
     }
 
-    public String getDescription() {
-        return description;
+    public UUID getKey() {
+        return this.key;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 
     public String getPhotoUrl() {
@@ -68,4 +75,19 @@ public class Mood {
         this.comments = comments;
     }
 
+    public PostDetails toPostDetails() {
+        PostDetails details = new PostDetails();
+
+        BeanUtils.copyProperties(this, details);
+
+        return details;
+    }
+
+    public static Post fromPostDetails(PostDetails postDetails) {
+        Post post = new Post();
+
+        BeanUtils.copyProperties(postDetails, post);
+
+        return post;
+    }
 }
