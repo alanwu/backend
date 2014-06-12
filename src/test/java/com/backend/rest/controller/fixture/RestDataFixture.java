@@ -35,6 +35,6 @@ public class RestDataFixture {
     }
 
     public static String standardPostJSON() {
-        return "{\"text\": \"I'm in testing mood\"}";
+        return "{\"text\": \"" + MY_POST + "\"}";
     }
 }
