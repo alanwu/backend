@@ -1,16 +1,21 @@
 package com.backend.core.domain;
 
 import com.backend.core.events.posts.PostDetails;
+import com.backend.rest.controller.PostQueriesController;
 import org.springframework.beans.BeanUtils;
+import org.springframework.hateoas.ResourceSupport;
 
+import java.io.Serializable;
 import java.util.List;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 /**
  * Created by alanw on 10/06/2014.
  */
-public class Post {
+public class Post extends ResourceSupport implements Serializable {
 
-    private long id;
+    private long uid;
     private String text;
     private String photoUrl;
     private String musicName;
@@ -22,12 +27,12 @@ public class Post {
 
     }
 
-    public long getId() {
-        return this.id;
+    public long getUid() {
+        return this.uid;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUid(long uid) {
+        this.uid = uid;
     }
 
     public String getText() {
@@ -90,6 +95,8 @@ public class Post {
         Post post = new Post();
 
         BeanUtils.copyProperties(postDetails, post);
+
+        post.add(linkTo(PostQueriesController.class).slash(post.uid).withSelfRel());
 
         return post;
     }

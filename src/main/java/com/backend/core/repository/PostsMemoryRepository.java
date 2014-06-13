@@ -16,7 +16,7 @@ public class PostsMemoryRepository implements PostsRepository {
     public synchronized Post save(Post post) {
 
         Map<Long, Post> modifiablePosts = new HashMap<Long, Post>(posts);
-        modifiablePosts.put(post.getId(), post);
+        modifiablePosts.put(post.getUid(), post);
         this.posts = Collections.unmodifiableMap(modifiablePosts);
 
         return post;
