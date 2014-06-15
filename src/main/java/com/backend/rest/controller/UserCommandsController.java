@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 /**
@@ -35,7 +36,7 @@ public class UserCommandsController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> createUser(@RequestBody User user, UriComponentsBuilder builder) {
+    public ResponseEntity<User> createUser(@RequestBody @Valid User user, UriComponentsBuilder builder) {
 
         UserCreatedEvent userCreatedEvent = userService.createUser(new CreateUserEvent(user));
 
