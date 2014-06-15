@@ -11,9 +11,9 @@ public interface PostsRepository {
 
     Post save(Post post);
 
-    void delete(long id);
+    void delete(long uid);
 
-    Post findById(long id);
+    Post findById(long uid);
 
     List<Post> findAll();
     

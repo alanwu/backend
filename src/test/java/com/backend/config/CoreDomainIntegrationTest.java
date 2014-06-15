@@ -1,8 +1,8 @@
 package com.backend.config;
 
+import com.backend.core.domain.Post;
 import com.backend.core.events.posts.AllPostsEvent;
 import com.backend.core.events.posts.CreatePostEvent;
-import com.backend.core.events.posts.PostDetails;
 import com.backend.core.events.posts.RequestAllPostsEvent;
 import com.backend.core.service.PostService;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by alan on 2014-06-10.
@@ -25,13 +25,13 @@ public class CoreDomainIntegrationTest {
 
     @Test
     public void addANewPostToTheSystem() {
-        CreatePostEvent ev = new CreatePostEvent(new PostDetails());
+        CreatePostEvent ev = new CreatePostEvent(new Post());
 
         postService.createPost(ev);
 
         AllPostsEvent allPosts = postService.requestAllPosts(new RequestAllPostsEvent());
 
-        assertEquals(1, allPosts.getPostsDetails().size());
+        assertEquals(1, allPosts.getPosts().size());
 
     }
 }

@@ -1,5 +1,6 @@
 package com.backend.core.events.posts;
 
+import com.backend.core.domain.Post;
 import com.backend.core.events.CreatedEvent;
 
 /**
@@ -7,20 +8,20 @@ import com.backend.core.events.CreatedEvent;
  */
 public class PostCreatedEvent extends CreatedEvent {
 
-    private final long newPostId;
-    private final PostDetails details;
+    private final long newPostUid;
+    private final Post post;
 
-    public PostCreatedEvent(final long newPostId, final PostDetails details) {
-        this.newPostId = newPostId;
-        this.details = details;
+    public PostCreatedEvent(final long newPostUid, final Post post) {
+        this.newPostUid = newPostUid;
+        this.post = post;
     }
 
-    public PostDetails getDetails() {
-        return details;
+    public Post getPost() {
+        return post;
     }
 
-    public long getNewPostId() {
-        return newPostId;
+    public long getNewPostUid() {
+        return newPostUid;
     }
 
 }

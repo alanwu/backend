@@ -1,7 +1,6 @@
 package com.backend.rest.controller.fixture;
 
 import com.backend.core.domain.Post;
-import com.backend.core.events.posts.PostDetails;
 
 import java.util.Random;
 
@@ -21,14 +20,15 @@ public class RestDataFixture {
         return post;
     }
 
-    public static PostDetails customKeyPostDetails(long id) {
-        PostDetails postDetails = new PostDetails(id);
-        postDetails.setText(MY_POST);
+    public static Post customKeyPostDetails(long uid) {
+        Post post = new Post();
+        post.setUid(uid);
+        post.setText(MY_POST);
 
-        return postDetails;
+        return post;
     }
 
-    public static PostDetails standardPostDetails() {
+    public static Post standardPostDetails() {
         Random random = new Random();
 
         return customKeyPostDetails(random.nextLong());

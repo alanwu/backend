@@ -1,7 +1,6 @@
 package com.backend.rest.controller;
 
 import com.backend.core.domain.Post;
-import com.backend.core.events.posts.PostDetails;
 import com.backend.core.events.posts.PostDetailsEvent;
 import com.backend.core.events.posts.RequestAllPostsEvent;
 import com.backend.core.events.posts.RequestPostDetailsEvent;
@@ -35,8 +34,8 @@ public class PostQueriesController {
     @ResponseBody
     public List<Post> getAllPosts() {
         List<Post> posts = new ArrayList<Post>();
-        for (PostDetails detail : postService.requestAllPosts(new RequestAllPostsEvent()).getPostsDetails()) {
-            posts.add(Post.fromPostDetails(detail));
+        for (Post post : postService.requestAllPosts(new RequestAllPostsEvent()).getPosts()) {
+            posts.add(post);
         }
         return posts;
     }
@@ -50,7 +49,7 @@ public class PostQueriesController {
             return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
         }
 
-        Post post = Post.fromPostDetails(details.getPostDetails());
+        Post post = details.getPost();
 
         return new ResponseEntity<Post>(post, HttpStatus.OK);
     }

@@ -1,9 +1,9 @@
 package com.backend.core.domain;
 
-import com.backend.core.events.posts.PostDetails;
 import com.backend.rest.controller.PostQueriesController;
-import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import java.io.Serializable;
 import java.util.List;
@@ -33,6 +33,11 @@ public class Post extends ResourceSupport implements Serializable {
 
     public void setUid(long uid) {
         this.uid = uid;
+
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes != null) {
+            this.add(linkTo(PostQueriesController.class).slash(this.uid).withSelfRel());
+        }
     }
 
     public String getText() {
@@ -81,24 +86,6 @@ public class Post extends ResourceSupport implements Serializable {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
-    }
-
-    public PostDetails toPostDetails() {
-        PostDetails details = new PostDetails();
-
-        BeanUtils.copyProperties(this, details);
-
-        return details;
-    }
-
-    public static Post fromPostDetails(PostDetails postDetails) {
-        Post post = new Post();
-
-        BeanUtils.copyProperties(postDetails, post);
-
-        post.add(linkTo(PostQueriesController.class).slash(post.uid).withSelfRel());
-
-        return post;
     }
 
     public boolean canBeDeleted() {

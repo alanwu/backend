@@ -1,37 +1,38 @@
 package com.backend.core.events.posts;
 
+import com.backend.core.domain.Post;
 import com.backend.core.events.ReadEvent;
 
 /**
  * Created by alanw on 10/06/2014.
  */
 public class PostDetailsEvent extends ReadEvent {
-    private long id;
-    private PostDetails postDetails;
+    private long uid;
+    private Post post;
 
     private PostDetailsEvent(long key) {
-        this.id = id;
+        this.uid = uid;
     }
 
-    public PostDetailsEvent(long id, PostDetails postDetails) {
-        this.id = id;
-        this.postDetails = postDetails;
+    public PostDetailsEvent(long uid, Post post) {
+        this.uid = uid;
+        this.post = post;
     }
 
-    public long getId() {
-        return id;
+    public long getUid() {
+        return uid;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUid(long uid) {
+        this.uid = uid;
     }
 
-    public PostDetails getPostDetails() {
-        return postDetails;
+    public Post getPost() {
+        return post;
     }
 
-    public static PostDetailsEvent notFound(long id) {
-        PostDetailsEvent ev = new PostDetailsEvent(id);
+    public static PostDetailsEvent notFound(long uid) {
+        PostDetailsEvent ev = new PostDetailsEvent(uid);
         ev.entityFound = false;
         return ev;
     }

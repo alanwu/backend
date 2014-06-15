@@ -6,18 +6,18 @@ import com.backend.core.events.RequestReadEvent;
  * Created by alanw on 10/06/2014.
  */
 public class RequestPostDetailsEvent extends RequestReadEvent {
-    private long id;
+    private long uid;
 
-    public RequestPostDetailsEvent(long id) {
-        this.id = id;
+    public RequestPostDetailsEvent(long uid) {
+        this.uid = uid;
     }
 
-    public long getId() {
-        return id;
+    public long getUid() {
+        return uid;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUid(long uid) {
+        this.uid = uid;
     }
 
 }

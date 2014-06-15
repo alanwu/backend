@@ -4,13 +4,13 @@ import com.backend.core.events.DeleteEvent;
 
 public class DeletePostEvent extends DeleteEvent {
 
-  private final long id;
+  private final long uid;
 
-  public DeletePostEvent(final long id) {
-    this.id = id;
+  public DeletePostEvent(final long uid) {
+    this.uid = uid;
   }
 
-  public long getId() {
-    return id;
+  public long getUid() {
+    return uid;
   }
 }

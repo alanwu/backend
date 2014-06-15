@@ -46,10 +46,10 @@ public class ViewPostTest {
         when(postService.requestPostDetails(any(RequestPostDetailsEvent.class))).thenReturn(
                 postDetailsEvent(MY_ID));
 
-        this.mockMvc.perform(get("/posts/{id}", MY_ID)
+        this.mockMvc.perform(get("/posts/{uid}", MY_ID)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.text").value(MY_POST))
-                .andExpect(jsonPath("$.id").value(MY_ID.intValue()));
+                .andExpect(jsonPath("$.uid").value(MY_ID.intValue()));
     }
 
 }

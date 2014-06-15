@@ -68,7 +68,7 @@ public class CreatePostTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.text").value(MY_POST))
-                .andExpect(jsonPath("$.id").value(MY_ID.intValue()));
+                .andExpect(jsonPath("$.uid").value(MY_ID.intValue()));
     }
 
     @Test

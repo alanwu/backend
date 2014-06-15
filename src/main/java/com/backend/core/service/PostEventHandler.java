@@ -17,56 +17,45 @@ public class PostEventHandler implements PostService {
 
     @Override
     public PostCreatedEvent createPost(CreatePostEvent createPostEvent) {
-        Post post = Post.fromPostDetails(createPostEvent.getDetails());
-
+        Post post = createPostEvent.getPost();
         post = postsRepository.save(post);
 
-        return new PostCreatedEvent(post.getUid(), post.toPostDetails());
+        return new PostCreatedEvent(post.getUid(), post);
     }
 
     @Override
     public AllPostsEvent requestAllPosts(RequestAllPostsEvent requestAllCurrentPostsEvent) {
-        List<PostDetails> generatedDetails = new ArrayList<PostDetails>();
-        for (Post post : postsRepository.findAll()) {
-            generatedDetails.add(post.toPostDetails());
-        }
-        return new AllPostsEvent(generatedDetails);
+        List<Post> generatedPosts = new ArrayList<Post>();
+
+        return new AllPostsEvent(postsRepository.findAll());
     }
 
     @Override
     public PostDetailsEvent requestPostDetails(RequestPostDetailsEvent requestPostDetailsEvent) {
-
-        Post post = postsRepository.findById(requestPostDetailsEvent.getId());
+        Post post = postsRepository.findById(requestPostDetailsEvent.getUid());
 
         if (post == null) {
-            return PostDetailsEvent.notFound(requestPostDetailsEvent.getId());
+            return PostDetailsEvent.notFound(requestPostDetailsEvent.getUid());
         }
 
-        return new PostDetailsEvent(
-                requestPostDetailsEvent.getId(),
-                post.toPostDetails());
+        return new PostDetailsEvent(requestPostDetailsEvent.getUid(), post);
     }
 
     @Override
     public PostDeletedEvent deletePost(DeletePostEvent deletePostEvent) {
-
-        Post post = postsRepository.findById(deletePostEvent.getId());
+        Post post = postsRepository.findById(deletePostEvent.getUid());
 
         if (post == null) {
-            return PostDeletedEvent.notFound(deletePostEvent.getId());
+            return PostDeletedEvent.notFound(deletePostEvent.getUid());
         }
-
-        PostDetails details = post.toPostDetails();
-
-        //TODOCUMENT This contains some specific domain logic, not exposed to the outside world, and not part of the
-        //persistence rules.
 
         if (!post.canBeDeleted()) {
-            return PostDeletedEvent.deletionForbidden(deletePostEvent.getId(), details);
+            return PostDeletedEvent.deletionForbidden(deletePostEvent.getUid(), post);
         }
 
-        postsRepository.delete(deletePostEvent.getId());
-        return new PostDeletedEvent(deletePostEvent.getId(), details);
+        postsRepository.delete(deletePostEvent.getUid());
+
+        return new PostDeletedEvent(deletePostEvent.getUid(), post);
     }
 
 }

@@ -16,6 +16,8 @@ public class PostsMemoryRepository implements PostsRepository {
     public synchronized Post save(Post post) {
 
         Map<Long, Post> modifiablePosts = new HashMap<Long, Post>(posts);
+        Random random = new Random();
+        post.setUid(random.nextLong());
         modifiablePosts.put(post.getUid(), post);
         this.posts = Collections.unmodifiableMap(modifiablePosts);
 
@@ -32,8 +34,8 @@ public class PostsMemoryRepository implements PostsRepository {
     }
 
     @Override
-    public Post findById(long id) {
-        return posts.get(id);
+    public Post findById(long uid) {
+        return posts.get(uid);
     }
 
     @Override

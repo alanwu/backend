@@ -11,7 +11,7 @@ public interface PostService {
 
     public PostDetailsEvent requestPostDetails(RequestPostDetailsEvent requestPostDetailsEvent);
 
-    public PostCreatedEvent createPost(CreatePostEvent event);
+    public PostCreatedEvent createPost(CreatePostEvent createPostEvent);
 
     public PostDeletedEvent deletePost(DeletePostEvent deletePostEvent);
 

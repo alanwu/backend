@@ -52,13 +52,13 @@ public class DeletePostTest {
                         postDeleted(MY_ID));
 
         this.mockMvc.perform(
-                delete("/posts/{id}", String.valueOf(MY_ID))
+                delete("/posts/{uid}", String.valueOf(MY_ID))
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
 
         verify(postService).deletePost(argThat(
-                Matchers.<DeletePostEvent>hasProperty("id", Matchers.equalTo(MY_ID))));
+                Matchers.<DeletePostEvent>hasProperty("uid", Matchers.equalTo(MY_ID))));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class DeletePostTest {
                         postDeletedNotFound(MY_ID));
 
         this.mockMvc.perform(
-                delete("/posts/{id}", String.valueOf(MY_ID))
+                delete("/posts/{uid}", String.valueOf(MY_ID))
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isNotFound());
@@ -84,7 +84,7 @@ public class DeletePostTest {
                         postDeletedFailed(MY_ID));
 
         this.mockMvc.perform(
-                delete("/posts/{id}", String.valueOf(MY_ID))
+                delete("/posts/{uid}", String.valueOf(MY_ID))
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isForbidden());

@@ -37,12 +37,12 @@ public class PostCommandsController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Post> createOrder(@RequestBody Post post, UriComponentsBuilder builder) {
 
-        PostCreatedEvent postCreated = postService.createPost(new CreatePostEvent(post.toPostDetails()));
+        PostCreatedEvent postCreatedEvent = postService.createPost(new CreatePostEvent(post));
 
-        Post newPost = Post.fromPostDetails(postCreated.getDetails());
+        Post newPost = postCreatedEvent.getPost();
 
         HttpHeaders headers = new HttpHeaders();
-        URI location = builder.path("/posts/{id}").buildAndExpand(String.valueOf(postCreated.getNewPostId())).toUri();
+        URI location = builder.path("/posts/{id}").buildAndExpand(String.valueOf(postCreatedEvent.getNewPostUid())).toUri();
         headers.setLocation(location);
 
         return new ResponseEntity<Post>(newPost, headers, HttpStatus.CREATED);
@@ -51,15 +51,15 @@ public class PostCommandsController {
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public ResponseEntity<Post> cancelPost(@PathVariable String id) {
 
-        PostDeletedEvent postDeleted = postService.deletePost(new DeletePostEvent(Long.parseLong(id)));
+        PostDeletedEvent postDeletedEvent = postService.deletePost(new DeletePostEvent(Long.parseLong(id)));
 
-        if (!postDeleted.isEntityFound()) {
+        if (!postDeletedEvent.isEntityFound()) {
             return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
         }
 
-        Post post = Post.fromPostDetails(postDeleted.getDetails());
+        Post post = postDeletedEvent.getPost();
 
-        if (postDeleted.isDeletionCompleted()) {
+        if (postDeletedEvent.isDeletionCompleted()) {
             return new ResponseEntity<Post>(post, HttpStatus.OK);
         }
 
