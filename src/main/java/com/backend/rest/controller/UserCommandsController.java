@@ -35,7 +35,7 @@ public class UserCommandsController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> createOrder(@RequestBody User user, UriComponentsBuilder builder) {
+    public ResponseEntity<User> createUser(@RequestBody User user, UriComponentsBuilder builder) {
 
         UserCreatedEvent userCreatedEvent = userService.createUser(new CreateUserEvent(user));
 
