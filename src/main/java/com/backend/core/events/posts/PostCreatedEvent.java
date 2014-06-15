@@ -8,20 +8,8 @@ import com.backend.core.events.CreatedEvent;
  */
 public class PostCreatedEvent extends CreatedEvent {
 
-    private final long newPostUid;
-    private final Post post;
-
     public PostCreatedEvent(final long newPostUid, final Post post) {
-        this.newPostUid = newPostUid;
-        this.post = post;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public long getNewPostUid() {
-        return newPostUid;
+        super(newPostUid, post);
     }
 
 }

@@ -1,7 +1,8 @@
-package com.backend.rest.controller;
+package com.backend.rest.controller.user;
 
-import com.backend.core.events.posts.RequestPostDetailsEvent;
-import com.backend.core.service.PostService;
+import com.backend.core.events.users.RequestUserDetailsEvent;
+import com.backend.core.service.UserService;
+import com.backend.rest.controller.UserQueriesController;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -11,9 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.backend.rest.controller.fixture.RestDataFixture.MY_ID;
-import static com.backend.rest.controller.fixture.RestDataFixture.MY_POST;
-import static com.backend.rest.controller.fixture.RestEventFixtures.postDetailsEvent;
+import static com.backend.rest.controller.fixture.user.RestDataFixture.FIRST_NAME;
+import static com.backend.rest.controller.fixture.user.RestDataFixture.MY_ID;
+import static com.backend.rest.controller.fixture.user.RestEventFixtures.userDetailsEvent;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -23,15 +24,15 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 /**
  * Created by alanw on 10/06/2014.
  */
-public class ViewPostTest {
+public class ViewUserTest {
 
     MockMvc mockMvc;
 
     @InjectMocks
-    PostQueriesController controller;
+    UserQueriesController controller;
 
     @Mock
-    PostService postService;
+    UserService userService;
 
     @Before
     public void setup() {
@@ -41,14 +42,14 @@ public class ViewPostTest {
     }
 
     @Test
-    public void thatViewPostRendersCorrectly() throws Exception {
+    public void thatViewUserRendersCorrectly() throws Exception {
 
-        when(postService.requestPostDetails(any(RequestPostDetailsEvent.class))).thenReturn(
-                postDetailsEvent(MY_ID));
+        when(userService.requestUserDetails(any(RequestUserDetailsEvent.class))).thenReturn(
+                userDetailsEvent(MY_ID));
 
-        this.mockMvc.perform(get("/posts/{uid}", MY_ID)
+        this.mockMvc.perform(get("/users/{uid}", MY_ID)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.text").value(MY_POST))
+                .andExpect(jsonPath("$.firstName").value(FIRST_NAME))
                 .andExpect(jsonPath("$.uid").value(MY_ID.intValue()));
     }
 

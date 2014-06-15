@@ -1,4 +1,4 @@
-package com.backend.rest.controller.fixture;
+package com.backend.rest.controller.fixture.post;
 
 import com.backend.core.domain.Post;
 

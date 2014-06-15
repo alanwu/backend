@@ -1,7 +1,8 @@
-package com.backend.rest.controller;
+package com.backend.rest.controller.user;
 
-import com.backend.core.events.posts.CreatePostEvent;
-import com.backend.core.service.PostService;
+import com.backend.core.events.users.CreateUserEvent;
+import com.backend.core.service.UserService;
+import com.backend.rest.controller.UserCommandsController;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.backend.rest.controller.fixture.RestDataFixture.MY_ID;
-import static com.backend.rest.controller.fixture.RestDataFixture.MY_POST;
-import static com.backend.rest.controller.fixture.RestDataFixture.standardPostJSON;
-import static com.backend.rest.controller.fixture.RestEventFixtures.postCreated;
+import static com.backend.rest.controller.fixture.user.RestDataFixture.*;
+import static com.backend.rest.controller.fixture.user.RestEventFixtures.userCreated;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -26,15 +25,15 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 /**
  * Created by alanw on 10/06/2014.
  */
-public class CreatePostTest {
+public class CreateUserTest {
 
     MockMvc mockMvc;
 
     @InjectMocks
-    PostCommandsController controller;
+    UserCommandsController controller;
 
     @Mock
-    PostService postService;
+    UserService userService;
 
     @Before
     public void setup() {
@@ -42,17 +41,17 @@ public class CreatePostTest {
 
         this.mockMvc = standaloneSetup(controller) .setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
 
-        when(postService.createPost(any(CreatePostEvent.class))).thenReturn(
-                postCreated(MY_ID.longValue()));
+        when(userService.createUser(any(CreateUserEvent.class))).thenReturn(
+                userCreated(MY_ID.longValue()));
 
     }
 
     @Test
-    public void thatCreatePostUsesHttpCreated() throws Exception {
+    public void thatCreateUserUsesHttpCreated() throws Exception {
 
         this.mockMvc.perform(
-                post("/posts")
-                        .content(standardPostJSON())
+                post("/users")
+                        .content(standardUserJSON())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -60,26 +59,26 @@ public class CreatePostTest {
     }
 
     @Test
-    public void thatCreatePostRendersAsJson() throws Exception {
+    public void thatCreateUserRendersAsJson() throws Exception {
 
         this.mockMvc.perform(
-                post("/posts")
-                        .content(standardPostJSON())
+                post("/users")
+                        .content(standardUserJSON())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.text").value(MY_POST))
+                .andExpect(jsonPath("$.firstName").value(FIRST_NAME))
                 .andExpect(jsonPath("$.uid").value(MY_ID.intValue()));
     }
 
     @Test
-    public void thatCreatePostPassesLocationHeader() throws Exception {
+    public void thatCreateUserPassesLocationHeader() throws Exception {
 
         this.mockMvc.perform(
-                post("/posts")
-                        .content(standardPostJSON())
+                post("/users")
+                        .content(standardUserJSON())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(header().string("Location", Matchers.endsWith("/posts/" + MY_ID.toString())));
+                .andExpect(header().string("Location", Matchers.endsWith("/users/" + MY_ID.toString())));
     }
 
 }

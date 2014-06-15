@@ -1,18 +1,18 @@
-package com.backend.rest.controller.fixture;
+package com.backend.rest.controller.fixture.post;
 
 import com.backend.core.events.posts.PostCreatedEvent;
 import com.backend.core.events.posts.PostDeletedEvent;
 import com.backend.core.events.posts.PostDetailsEvent;
 
-import static com.backend.rest.controller.fixture.RestDataFixture.customKeyPostDetails;
-import static com.backend.rest.controller.fixture.RestDataFixture.standardPostDetails;
+import static com.backend.rest.controller.fixture.post.RestDataFixture.customKeyPostDetails;
+import static com.backend.rest.controller.fixture.post.RestDataFixture.standardPostDetails;
 
 /**
  * Created by alanw on 10/06/2014.
  */
 public class RestEventFixtures {
     public static PostDetailsEvent postDetailsNotFound(long id) {
-        return PostDetailsEvent.notFound(id);
+        return (PostDetailsEvent) PostDetailsEvent.notFound(id);
     }
 
     public static PostDetailsEvent postDetailsEvent(long id) {
@@ -28,11 +28,11 @@ public class RestEventFixtures {
     }
 
     public static PostDeletedEvent postDeletedFailed(long id) {
-        return PostDeletedEvent.deletionForbidden(id, standardPostDetails());
+        return (PostDeletedEvent) PostDeletedEvent.deletionForbidden(id, standardPostDetails());
     }
 
     public static PostDeletedEvent postDeletedNotFound(long id) {
-        return PostDeletedEvent.notFound(id);
+        return (PostDeletedEvent) PostDeletedEvent.notFound(id);
     }
 
 }

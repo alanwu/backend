@@ -1,6 +1,6 @@
 package com.backend.config;
 
-import com.backend.rest.controller.fixture.RestDataFixture;
+import com.backend.rest.controller.fixture.post.RestDataFixture;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static com.backend.rest.controller.fixture.RestDataFixture.standardPostJSON;
+import static com.backend.rest.controller.fixture.post.RestDataFixture.standardPostJSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

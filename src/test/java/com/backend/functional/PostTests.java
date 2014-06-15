@@ -1,7 +1,7 @@
 package com.backend.functional;
 
 import com.backend.core.domain.Post;
-import com.backend.rest.controller.fixture.RestDataFixture;
+import com.backend.rest.controller.fixture.post.RestDataFixture;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.*;

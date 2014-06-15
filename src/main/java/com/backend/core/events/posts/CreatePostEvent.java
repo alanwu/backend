@@ -7,14 +7,9 @@ import com.backend.core.events.CreateEvent;
  * Created by alanw on 10/06/2014.
  */
 public class CreatePostEvent extends CreateEvent {
-    private Post post;
 
     public CreatePostEvent(Post post) {
-        this.post = post;
-    }
-
-    public Post getPost() {
-        return post;
+        super(post);
     }
 
 }

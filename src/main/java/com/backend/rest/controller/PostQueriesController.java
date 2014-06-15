@@ -49,7 +49,7 @@ public class PostQueriesController {
             return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
         }
 
-        Post post = details.getPost();
+        Post post = (Post) details.getDetails();
 
         return new ResponseEntity<Post>(post, HttpStatus.OK);
     }

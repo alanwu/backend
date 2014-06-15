@@ -25,10 +25,10 @@ public class PostsMemoryRepository implements PostsRepository {
     }
 
     @Override
-    public synchronized void delete(long id) {
-        if (posts.containsKey(id)) {
+    public synchronized void delete(long uid) {
+        if (posts.containsKey(uid)) {
             Map<Long, Post> modifiablePosts = new HashMap<Long, Post>(posts);
-            modifiablePosts.remove(id);
+            modifiablePosts.remove(uid);
             this.posts = Collections.unmodifiableMap(modifiablePosts);
         }
     }

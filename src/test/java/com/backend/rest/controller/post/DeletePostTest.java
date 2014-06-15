@@ -1,7 +1,8 @@
-package com.backend.rest.controller;
+package com.backend.rest.controller.post;
 
 import com.backend.core.events.posts.DeletePostEvent;
 import com.backend.core.service.PostService;
+import com.backend.rest.controller.PostCommandsController;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,8 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.backend.rest.controller.fixture.RestDataFixture.MY_ID;
-import static com.backend.rest.controller.fixture.RestEventFixtures.*;
+import static com.backend.rest.controller.fixture.post.RestDataFixture.MY_ID;
+import static com.backend.rest.controller.fixture.post.RestEventFixtures.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.verify;
@@ -40,7 +41,7 @@ public class DeletePostTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        this.mockMvc = standaloneSetup(controller) .setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
+        this.mockMvc = standaloneSetup(controller).setMessageConverters(new MappingJackson2HttpMessageConverter()).build();
 
     }
 

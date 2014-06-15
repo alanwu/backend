@@ -6,36 +6,18 @@ import com.backend.core.events.DeletedEvent;
 
 public class PostDeletedEvent extends DeletedEvent {
 
-    private long uid;
-    private Post post;
-    private boolean deletionCompleted;
-
-    private PostDeletedEvent(long uid) {
-        this.uid = uid;
+    public PostDeletedEvent(long uid) {
+        super(uid);
     }
 
     public PostDeletedEvent(long uid, Post post) {
-        this.uid = uid;
-        this.post = post;
-        this.deletionCompleted = true;
-    }
-
-    public long getUid() {
-        return uid;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public boolean isDeletionCompleted() {
-        return deletionCompleted;
+        super(uid, post);
     }
 
     public static PostDeletedEvent deletionForbidden(long uid, Post details) {
         PostDeletedEvent ev = new PostDeletedEvent(uid, details);
         ev.entityFound = true;
-        ev.deletionCompleted = false;
+        ev.setDeletionCompleted(false);
         return ev;
     }
 
@@ -44,4 +26,5 @@ public class PostDeletedEvent extends DeletedEvent {
         ev.entityFound = false;
         return ev;
     }
+
 }

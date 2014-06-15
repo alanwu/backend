@@ -17,7 +17,7 @@ public class PostEventHandler implements PostService {
 
     @Override
     public PostCreatedEvent createPost(CreatePostEvent createPostEvent) {
-        Post post = createPostEvent.getPost();
+        Post post = (Post) createPostEvent.getNewObject();
         post = postsRepository.save(post);
 
         return new PostCreatedEvent(post.getUid(), post);

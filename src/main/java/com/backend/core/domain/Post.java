@@ -1,11 +1,9 @@
 package com.backend.core.domain;
 
 import com.backend.rest.controller.PostQueriesController;
-import org.springframework.hateoas.ResourceSupport;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import java.io.Serializable;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -13,9 +11,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 /**
  * Created by alanw on 10/06/2014.
  */
-public class Post extends ResourceSupport implements Serializable {
+public class Post extends BaseDomain {
 
-    private long uid;
     private String text;
     private String photoUrl;
     private String musicName;
@@ -27,16 +24,12 @@ public class Post extends ResourceSupport implements Serializable {
 
     }
 
-    public long getUid() {
-        return this.uid;
-    }
-
     public void setUid(long uid) {
-        this.uid = uid;
+        super.setUid(uid);
 
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes != null) {
-            this.add(linkTo(PostQueriesController.class).slash(this.uid).withSelfRel());
+            this.add(linkTo(PostQueriesController.class).slash(this.getUid()).withSelfRel());
         }
     }
 
@@ -86,10 +79,6 @@ public class Post extends ResourceSupport implements Serializable {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
-    }
-
-    public boolean canBeDeleted() {
-        return true;
     }
 
 }
