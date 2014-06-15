@@ -1,15 +1,20 @@
 package com.backend.core.service;
 
+import com.backend.config.JPAConfig;
 import com.backend.core.domain.User;
 import com.backend.core.events.users.*;
 import com.backend.core.repository.UsersRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 
+@ContextConfiguration(classes = {JPAConfig.class})
 public class UserEventHandler implements UserService {
 
-    private final UsersRepository usersRepository;
+    @Autowired
+    private UsersRepository usersRepository;
 
-    public UserEventHandler(final UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
+    public UserEventHandler() {
+        //this.usersRepository = usersRepository;
     }
 
     @Override
@@ -22,7 +27,7 @@ public class UserEventHandler implements UserService {
 
     @Override
     public UserDetailsEvent requestUserDetails(RequestUserDetailsEvent requestUserDetailsEvent) {
-        User user = usersRepository.findById(requestUserDetailsEvent.getUid());
+        User user = usersRepository.findByUid(requestUserDetailsEvent.getUid());
 
         if (user == null) {
             return UserDetailsEvent.notFound(requestUserDetailsEvent.getUid());
@@ -33,7 +38,7 @@ public class UserEventHandler implements UserService {
 
     @Override
     public UserDeletedEvent deleteUser(DeleteUserEvent deleteUserEvent) {
-        User user = usersRepository.findById(deleteUserEvent.getUid());
+        User user = usersRepository.findByUid(deleteUserEvent.getUid());
 
         if (user == null) {
             return UserDeletedEvent.notFound(deleteUserEvent.getUid());

@@ -1,37 +1,41 @@
 package com.backend.config;
 
-import com.backend.core.domain.Post;
-import com.backend.core.events.posts.AllPostsEvent;
-import com.backend.core.events.posts.CreatePostEvent;
-import com.backend.core.events.posts.RequestAllPostsEvent;
-import com.backend.core.service.PostService;
+import com.backend.core.domain.User;
+import com.backend.core.events.users.CreateUserEvent;
+import com.backend.core.events.users.RequestUserDetailsEvent;
+import com.backend.core.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by alan on 2014-06-10.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CoreConfig.class})
+@ContextConfiguration(classes = {CoreConfig.class, JPAConfig.class})
 public class CoreDomainIntegrationTest {
 
     @Autowired
-    PostService postService;
+    UserService userService;
 
     @Test
-    public void addANewPostToTheSystem() {
-        CreatePostEvent ev = new CreatePostEvent(new Post());
+    public void addANewUserToTheSystem() {
+        User newUser = new User();
+        newUser.setFirstName("Alan");
+        newUser.setLastName("Wu");
+        newUser.setEmail("alanwunan@gmail.com");
 
-        postService.createPost(ev);
+        CreateUserEvent ev = new CreateUserEvent(newUser);
 
-        AllPostsEvent allPosts = postService.requestAllPosts(new RequestAllPostsEvent());
+        userService.createUser(ev);
 
-        assertEquals(1, allPosts.getPosts().size());
+        User user = (User) userService.requestUserDetails(new RequestUserDetailsEvent(ev.getNewObject().getUid())).getDetails();
+
+        assertNotNull(user);
 
     }
 }

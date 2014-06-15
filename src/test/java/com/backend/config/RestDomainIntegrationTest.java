@@ -1,6 +1,6 @@
 package com.backend.config;
 
-import com.backend.rest.controller.fixture.post.RestDataFixture;
+import com.backend.rest.controller.fixture.user.RestDataFixture;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static com.backend.rest.controller.fixture.post.RestDataFixture.standardPostJSON;
+import static com.backend.rest.controller.fixture.user.RestDataFixture.standardUserJSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {CoreConfig.class, MVCConfig.class})
+@ContextConfiguration(classes = {CoreConfig.class, MVCConfig.class, JPAConfig.class})
 public class RestDomainIntegrationTest {
     @Autowired
     WebApplicationContext webApplicationContext;
@@ -38,21 +38,21 @@ public class RestDomainIntegrationTest {
     }
 
     @Test
-    public void addANewPostToTheSystem() throws Exception  {
+    public void addANewUserToTheSystem() throws Exception  {
         this.mockMvc.perform(
-                post("/posts")
-                        .content(standardPostJSON())
+                post("/users")
+                        .content(standardUserJSON())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated());
 
         this.mockMvc.perform(
-                get("/posts")
+                get("/users/1")
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].text").value(RestDataFixture.MY_POST));
+                .andExpect(jsonPath("$.firstName").value(RestDataFixture.FIRST_NAME));
 
     }
 }

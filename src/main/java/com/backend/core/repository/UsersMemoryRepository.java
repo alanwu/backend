@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class UsersMemoryRepository implements UsersRepository {
+public class UsersMemoryRepository  {
 
     private Map<Long, User> users;
 
@@ -15,7 +15,6 @@ public class UsersMemoryRepository implements UsersRepository {
         this.users = Collections.unmodifiableMap(users);
     }
 
-    @Override
     public synchronized User save(User user) {
 
         Map<Long, User> modifiableUsers = new HashMap<Long, User>(users);
@@ -27,7 +26,6 @@ public class UsersMemoryRepository implements UsersRepository {
         return user;
     }
 
-    @Override
     public synchronized void delete(long uid) {
         if (users.containsKey(uid)) {
             Map<Long, User> modifiableUsers = new HashMap<Long, User>(users);
@@ -36,7 +34,6 @@ public class UsersMemoryRepository implements UsersRepository {
         }
     }
 
-    @Override
     public User findById(long uid) {
         return users.get(uid);
     }

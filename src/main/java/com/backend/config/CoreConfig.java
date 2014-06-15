@@ -1,11 +1,8 @@
 package com.backend.config;
 
 import com.backend.core.domain.Post;
-import com.backend.core.domain.User;
 import com.backend.core.repository.PostsMemoryRepository;
 import com.backend.core.repository.PostsRepository;
-import com.backend.core.repository.UsersMemoryRepository;
-import com.backend.core.repository.UsersRepository;
 import com.backend.core.service.PostEventHandler;
 import com.backend.core.service.PostService;
 import com.backend.core.service.UserEventHandler;
@@ -32,13 +29,8 @@ public class CoreConfig {
     }
 
     @Bean
-    public UserService createUserService(UsersRepository repo) {
-        return new UserEventHandler(repo);
-    }
-
-    @Bean
-    public UsersRepository createUserRepo() {
-        return new UsersMemoryRepository(new HashMap<Long, User>());
+    public UserService createUserService() {
+        return new UserEventHandler();
     }
 
 }

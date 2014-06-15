@@ -3,24 +3,47 @@ package com.backend.core.domain;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
 /**
  * Created by alanw on 10/06/2014.
  */
+@Entity(name = "USER")
 public class User extends BaseDomain {
+    @Column(name = "FIRST_NAME")
     @NotEmpty
     private String firstName;
+
+    @Column(name = "LAST_NAME")
     @NotEmpty
     private String lastName;
+
+    @Column(name = "EMAIL")
     @Email
     private String email;
+
+    @Transient
     private String clearTextPassword;
+
+    @Column(name = "PASSWORD")
     private String password;
+
+    @Column(name = "GENDER")
     private String gender;
+
+    @Column(name = "CREATED_DATE")
     private String createdDate;
+
+    @Column(name = "LAST_MODIFIED_DATE")
     private String lastModifiedDate;
+
+    @Column(name = "YEAR_OF_BIRTH")
     private int yearOfBirth;
 
     public User() {
+
     }
 
     public String getFirstName() {
