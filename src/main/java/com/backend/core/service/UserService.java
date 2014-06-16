@@ -7,7 +7,7 @@ import com.backend.core.events.users.*;
  */
 public interface UserService {
 
-    public UserDetailsEvent requestUserDetails(RequestUserDetailsEvent requestUserDetailsEvent);
+    public UserDetailsEvent getUserDetails(RequestUserDetailsEvent requestUserDetailsEvent);
 
     public UserCreatedEvent createUser(CreateUserEvent createUserEvent);
 

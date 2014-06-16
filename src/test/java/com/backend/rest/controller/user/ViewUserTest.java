@@ -44,7 +44,7 @@ public class ViewUserTest {
     @Test
     public void thatViewUserRendersCorrectly() throws Exception {
 
-        when(userService.requestUserDetails(any(RequestUserDetailsEvent.class))).thenReturn(
+        when(userService.getUserDetails(any(RequestUserDetailsEvent.class))).thenReturn(
                 userDetailsEvent(MY_ID));
 
         this.mockMvc.perform(get("/users/{uid}", MY_ID)

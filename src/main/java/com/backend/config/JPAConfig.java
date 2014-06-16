@@ -49,7 +49,7 @@ public class JPAConfig {
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(true);
-
+        vendorAdapter.setShowSql(true);
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("com.backend.core.domain");
@@ -57,6 +57,7 @@ public class JPAConfig {
 
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
+        properties.put("hibernate.show_sql", true);
         factory.setJpaProperties(properties);
 
         factory.afterPropertiesSet();

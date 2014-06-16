@@ -3,9 +3,10 @@ package com.backend.core.domain;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by alanw on 10/06/2014.
@@ -20,7 +21,8 @@ public class User extends BaseDomain {
     @NotEmpty
     private String lastName;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", unique = true)
+    @NotEmpty
     @Email
     private String email;
 
@@ -34,13 +36,19 @@ public class User extends BaseDomain {
     private String gender;
 
     @Column(name = "CREATED_DATE")
-    private String createdDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
 
     @Column(name = "LAST_MODIFIED_DATE")
-    private String lastModifiedDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
 
     @Column(name = "YEAR_OF_BIRTH")
     private int yearOfBirth;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "USER_UID")
+    private Set<UserRole> userRoles;
 
     public User() {
 
@@ -102,20 +110,32 @@ public class User extends BaseDomain {
         this.yearOfBirth = yearOfBirth;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
-    public String getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(String lastModifiedDate) {
+    public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public Set<UserRole> getUserRoles() {
+        if (userRoles == null) {
+            userRoles = new HashSet<UserRole>();
+        }
+
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
 }

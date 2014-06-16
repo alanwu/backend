@@ -9,6 +9,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+
+import javax.transaction.Transactional;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -17,6 +20,8 @@ import static org.junit.Assert.assertNotNull;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {CoreConfig.class, JPAConfig.class})
+@Transactional
+@TransactionConfiguration(defaultRollback = true)
 public class CoreDomainIntegrationTest {
 
     @Autowired
@@ -33,7 +38,7 @@ public class CoreDomainIntegrationTest {
 
         userService.createUser(ev);
 
-        User user = (User) userService.requestUserDetails(new RequestUserDetailsEvent(ev.getNewObject().getUid())).getDetails();
+        User user = (User) userService.getUserDetails(new RequestUserDetailsEvent(ev.getNewObject().getUid())).getDetails();
 
         assertNotNull(user);
 

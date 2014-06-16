@@ -2,10 +2,15 @@ package com.backend.core.service;
 
 import com.backend.config.JPAConfig;
 import com.backend.core.domain.User;
+import com.backend.core.domain.UserRole;
 import com.backend.core.events.users.*;
 import com.backend.core.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @ContextConfiguration(classes = {JPAConfig.class})
 public class UserEventHandler implements UserService {
@@ -13,20 +18,29 @@ public class UserEventHandler implements UserService {
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserEventHandler() {
-        //this.usersRepository = usersRepository;
+
     }
 
     @Override
     public UserCreatedEvent createUser(CreateUserEvent createUserEvent) {
         User user = (User) createUserEvent.getNewObject();
+        Calendar today = new GregorianCalendar();
+        user.setPassword(passwordEncoder.encode(user.getClearTextPassword()));
+        user.setCreatedDate(today.getTime());
+        user.setLastModifiedDate(today.getTime());
+        user.getUserRoles().add(new UserRole("USER"));
+
         user = usersRepository.save(user);
 
         return new UserCreatedEvent(user.getUid(), user);
     }
 
     @Override
-    public UserDetailsEvent requestUserDetails(RequestUserDetailsEvent requestUserDetailsEvent) {
+    public UserDetailsEvent getUserDetails(RequestUserDetailsEvent requestUserDetailsEvent) {
         User user = usersRepository.findByUid(requestUserDetailsEvent.getUid());
 
         if (user == null) {

@@ -30,7 +30,7 @@ public class UserQueriesController {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<User> viewUser(@PathVariable String id) {
 
-        UserDetailsEvent details = userService.requestUserDetails(new RequestUserDetailsEvent(Long.parseLong(id)));
+        UserDetailsEvent details = userService.getUserDetails(new RequestUserDetailsEvent(Long.parseLong(id)));
 
         if (!details.isEntityFound()) {
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
