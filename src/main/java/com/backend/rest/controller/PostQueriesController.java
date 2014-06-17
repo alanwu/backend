@@ -5,8 +5,7 @@ import com.backend.core.events.posts.PostDetailsEvent;
 import com.backend.core.events.posts.RequestAllPostsEvent;
 import com.backend.core.events.posts.RequestPostDetailsEvent;
 import com.backend.core.service.PostService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ import java.util.List;
 @RequestMapping("/posts")
 public class PostQueriesController {
 
-    private static Logger LOG = LoggerFactory.getLogger(PostQueriesController.class);
+    private static Logger LOG = Logger.getLogger(PostQueriesController.class);
 
     @Autowired
     private PostService postService;

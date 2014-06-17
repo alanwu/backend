@@ -6,8 +6,7 @@ import com.backend.core.events.users.DeleteUserEvent;
 import com.backend.core.events.users.UserCreatedEvent;
 import com.backend.core.events.users.UserDeletedEvent;
 import com.backend.core.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,14 +29,13 @@ import java.net.URI;
 @RequestMapping("/users")
 public class UserCommandsController {
 
-    private static Logger LOG = LoggerFactory.getLogger(UserCommandsController.class);
+    private static Logger LOG = Logger.getLogger(UserCommandsController.class);
 
     @Autowired
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<User> createUser(@RequestBody @Valid User user, UriComponentsBuilder builder) {
-
         UserCreatedEvent userCreatedEvent = userService.createUser(new CreateUserEvent(user));
 
         User newUser = (User) userCreatedEvent.getNewObject();

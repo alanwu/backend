@@ -6,8 +6,7 @@ import com.backend.core.events.posts.DeletePostEvent;
 import com.backend.core.events.posts.PostCreatedEvent;
 import com.backend.core.events.posts.PostDeletedEvent;
 import com.backend.core.service.PostService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,7 +28,7 @@ import java.net.URI;
 @RequestMapping("/posts")
 public class PostCommandsController {
 
-    private static Logger LOG = LoggerFactory.getLogger(PostCommandsController.class);
+    private static Logger LOG = Logger.getLogger(PostCommandsController.class);
 
     @Autowired
     private PostService postService;

@@ -4,8 +4,7 @@ import com.backend.core.domain.User;
 import com.backend.core.events.users.RequestUserDetailsEvent;
 import com.backend.core.events.users.UserDetailsEvent;
 import com.backend.core.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/users")
 public class UserQueriesController {
 
-    private static Logger LOG = LoggerFactory.getLogger(UserQueriesController.class);
+    private static Logger LOG = Logger.getLogger(UserQueriesController.class);
 
     @Autowired
     private UserService userService;
@@ -40,5 +39,5 @@ public class UserQueriesController {
 
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
-    
+
 }
