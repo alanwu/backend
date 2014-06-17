@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
  * Created by alan on 2014-06-10.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {CoreConfig.class, JPAConfig.class})
+@ContextConfiguration(classes = {CoreConfig.class, JPAConfig.class, SecurityConfig.class})
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
 public class CoreDomainIntegrationTest {
@@ -33,7 +33,7 @@ public class CoreDomainIntegrationTest {
         newUser.setFirstName("Alan");
         newUser.setLastName("Wu");
         newUser.setEmail("alanwunan@gmail.com");
-
+        newUser.setClearTextPassword("1");
         CreateUserEvent ev = new CreateUserEvent(newUser);
 
         userService.createUser(ev);

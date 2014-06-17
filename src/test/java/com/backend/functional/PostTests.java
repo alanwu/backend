@@ -42,7 +42,7 @@ public class PostTests {
     @Test
     public void thatPostsCanBeAddedAndQueried() {
         HttpEntity<String> requestEntity = new HttpEntity<String>(
-                RestDataFixture.standardPostJSON(), getHeaders("letsnosh" + ":" + "noshing"));
+                RestDataFixture.standardPostJSON(), getHeaders("1@1.com" + ":" + "1"));
 
         RestTemplate template = new RestTemplate();
         ResponseEntity<Post> entity = template.postForEntity(
@@ -93,7 +93,7 @@ public class PostTests {
 
     private ResponseEntity<Post> createPost() {
         HttpEntity<String> requestEntity = new HttpEntity<String>(
-                RestDataFixture.standardPostJSON(), getHeaders("letsnosh" + ":" + "noshing"));
+                RestDataFixture.standardPostJSON(), getHeaders("1@1.com" + ":" + "1"));
 
         RestTemplate template = new RestTemplate();
         return template.postForEntity(

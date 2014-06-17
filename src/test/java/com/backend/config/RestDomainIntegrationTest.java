@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {CoreConfig.class, MVCConfig.class, JPAConfig.class})
+@ContextConfiguration(classes = {CoreConfig.class, MVCConfig.class, JPAConfig.class, SecurityConfig.class})
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
 public class RestDomainIntegrationTest {

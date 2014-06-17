@@ -1,8 +1,8 @@
 package com.backend.core.service;
 
 import com.backend.config.JPAConfig;
-import com.backend.core.domain.User;
 import com.backend.core.domain.UserRole;
+import com.backend.core.domain.User;
 import com.backend.core.events.users.*;
 import com.backend.core.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class UserEventHandler implements UserService {
         user.setPassword(passwordEncoder.encode(user.getClearTextPassword()));
         user.setCreatedDate(today.getTime());
         user.setLastModifiedDate(today.getTime());
-        user.getUserRoles().add(new UserRole("USER"));
+        user.getUserRoles().add(new UserRole("ROLE_USER"));
 
         user = usersRepository.save(user);
 

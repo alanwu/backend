@@ -23,7 +23,7 @@ public class RestDataFixture {
         user.setFirstName(FIRST_NAME);
         user.setLastName(Last_NAME);
         user.setEmail(EMAIL);
-        user.setPassword(PASSWORD);
+        user.setClearTextPassword(PASSWORD);
 
         return user;
     }
@@ -34,7 +34,7 @@ public class RestDataFixture {
         user.setFirstName(FIRST_NAME);
         user.setLastName(Last_NAME);
         user.setEmail(EMAIL);
-        user.setPassword(PASSWORD);
+        user.setClearTextPassword(PASSWORD);
 
         return user;
     }

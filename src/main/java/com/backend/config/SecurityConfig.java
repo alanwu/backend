@@ -28,10 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery("select email as username, password, 1 as active from user where email = ?")
-                .authoritiesByUsernameQuery("select user.email as username, user_role.role from User, user_role where user.uid = user_role.user_uid and user.email = ?");
+                .usersByUsernameQuery("select email as username, password, 1 as enabled from user where email = ?")
+                .authoritiesByUsernameQuery("select user.email as username, user_role.role from user, user_role where user.uid = user_role.user_uid and user.email = ?");
 
-        //auth.inMemoryAuthentication().withUser("letsnosh").password("noshing").roles("USER");
+        //auth.inMemoryAuthentication().withUser("1@1.com").password("1").roles("USER");
     }
 
     @Override
