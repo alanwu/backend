@@ -8,10 +8,8 @@ import com.backend.core.events.UpdateEvent;
  */
 public class UpdateUserEvent extends UpdateEvent {
 
-    private User user;
-
     public UpdateUserEvent(User user) {
-        this.user = user;
+        super(user);
     }
 
 }

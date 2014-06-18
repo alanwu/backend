@@ -12,6 +12,10 @@ public class UserRole extends BaseDomain {
     @Column(name = "ROLE")
     private String role;
 
+    public UserRole() {
+
+    }
+
     public UserRole(String role) {
         this.role = role;
     }

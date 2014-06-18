@@ -11,6 +11,8 @@ public interface UserService {
 
     public UserCreatedEvent createUser(CreateUserEvent createUserEvent);
 
+    public UserUpdatedEvent updateUser(UpdateUserEvent updateUserEvent) throws Exception;
+
     public UserDeletedEvent deleteUser(DeleteUserEvent deleteUserEvent);
 
 }

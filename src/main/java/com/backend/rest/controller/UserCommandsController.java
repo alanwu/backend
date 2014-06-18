@@ -1,10 +1,7 @@
 package com.backend.rest.controller;
 
 import com.backend.core.domain.User;
-import com.backend.core.events.users.CreateUserEvent;
-import com.backend.core.events.users.DeleteUserEvent;
-import com.backend.core.events.users.UserCreatedEvent;
-import com.backend.core.events.users.UserDeletedEvent;
+import com.backend.core.events.users.*;
 import com.backend.core.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +42,23 @@ public class UserCommandsController {
         headers.setLocation(location);
 
         return new ResponseEntity<User>(newUser, headers, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<User> updateUser(@RequestBody @Valid User user, UriComponentsBuilder builder) {
+
+        HttpHeaders headers = new HttpHeaders();
+        URI location = builder.path("/users/{uid}").buildAndExpand(String.valueOf(user.getUid())).toUri();
+        headers.setLocation(location);
+        try {
+            UserUpdatedEvent userUpdatedEvent = userService.updateUser(new UpdateUserEvent(user));
+            User updatedUser = (User) userUpdatedEvent.getUpdatedObject();
+
+            return new ResponseEntity<User>(updatedUser, headers, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<User>(user, headers, HttpStatus.CREATED);
+        }
+
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{uid}")

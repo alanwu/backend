@@ -5,8 +5,8 @@ import com.backend.core.events.UpdatedEvent;
 
 public class PostUpdatedEvent extends UpdatedEvent {
 
-    public PostUpdatedEvent(long uid, Post post) {
-        super(uid, post);
+    public PostUpdatedEvent(Post post) {
+        super(post);
     }
 
 }

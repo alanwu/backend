@@ -5,8 +5,8 @@ import com.backend.core.events.UpdatedEvent;
 
 public class UserUpdatedEvent extends UpdatedEvent {
 
-    public UserUpdatedEvent(long uid, User user) {
-        super(uid, user);
+    public UserUpdatedEvent(User user) {
+        super(user);
     }
 
 }

@@ -4,9 +4,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by alanw on 10/06/2014.
@@ -138,4 +136,21 @@ public class User extends BaseDomain {
         this.userRoles = userRoles;
     }
 
+    @PreUpdate
+    public void preUpdate() {
+        Calendar today = new GregorianCalendar();
+        this.setLastModifiedDate(today.getTime());
+    }
+
+    @PrePersist
+    public void prePersist() {
+        Calendar today = new GregorianCalendar();
+        this.setCreatedDate(today.getTime());
+        this.setLastModifiedDate(today.getTime());
+    }
+
+    @PostUpdate
+    public void postUpdate() {
+
+    }
 }
