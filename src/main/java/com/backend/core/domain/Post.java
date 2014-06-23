@@ -1,25 +1,35 @@
 package com.backend.core.domain;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by alanw on 10/06/2014.
  */
+@Entity(name = "POST")
 public class Post extends BaseDomain {
 
+    @Column(name = "TEXT")
     private String text;
+
+    @Column(name = "PHOTO_URL")
     private String photoUrl;
+
+    @Column(name = "MUSIC_NAME")
     private String musicName;
+
+    @Column(name = "VIDEO_URL")
     private String videoUrl;
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name="USER_ID")
     private User user;
+
+    @Transient
     private List<Comment> comments;
 
     public Post() {
 
-    }
-
-    public void setUid(long uid) {
-        super.setUid(uid);
     }
 
     public String getText() {

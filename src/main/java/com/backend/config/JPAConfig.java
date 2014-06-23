@@ -1,5 +1,6 @@
 package com.backend.config;
 
+import com.backend.core.repository.PostsRepository;
 import com.backend.core.repository.UsersRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,7 +26,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableJpaRepositories(basePackages = "com.backend.core.repository",
-        includeFilters = @ComponentScan.Filter(value = {UsersRepository.class}, type = FilterType.ASSIGNABLE_TYPE))
+        includeFilters = @ComponentScan.Filter(value = {UsersRepository.class, PostsRepository.class}, type = FilterType.ASSIGNABLE_TYPE))
 @EnableTransactionManagement
 public class JPAConfig {
 

@@ -54,15 +54,15 @@ public class UserCommandsController {
             UserUpdatedEvent userUpdatedEvent = userService.updateUser(new UpdateUserEvent(user));
             User updatedUser = (User) userUpdatedEvent.getUpdatedObject();
 
-            return new ResponseEntity<User>(updatedUser, headers, HttpStatus.CREATED);
+            return new ResponseEntity<User>(updatedUser, headers, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<User>(user, headers, HttpStatus.CREATED);
+            return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/{uid}")
-    public ResponseEntity<User> cancelUser(@PathVariable String uid) {
+    public ResponseEntity<User> deleteUser(@PathVariable String uid) {
 
         UserDeletedEvent userDeletedEvent = userService.deleteUser(new DeleteUserEvent(Long.parseLong(uid)));
 

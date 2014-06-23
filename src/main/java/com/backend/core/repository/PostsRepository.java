@@ -1,20 +1,16 @@
 package com.backend.core.repository;
 
 import com.backend.core.domain.Post;
-
-import java.util.List;
+import com.backend.core.domain.User;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * Created by alan on 2014-06-10.
  */
-public interface PostsRepository {
+public interface PostsRepository extends PagingAndSortingRepository<Post, Long> {
 
-    Post save(Post post);
+    Post findByUid(long uid);
 
-    void delete(long uid);
+    Post findByUser(User user);
 
-    Post findById(long uid);
-
-    List<Post> findAll();
-    
 }

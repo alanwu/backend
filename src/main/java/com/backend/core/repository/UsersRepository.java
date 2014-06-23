@@ -9,10 +9,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface UsersRepository extends CrudRepository<User, Long> {
 
-    //User save(User user);
-
-    //void delete(long uid);
-
     User findByUid(long uid);
 
     User findByEmail(String email);

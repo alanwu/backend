@@ -7,8 +7,6 @@ import com.backend.core.events.posts.*;
  */
 public interface PostService {
 
-    public AllPostsEvent requestAllPosts(RequestAllPostsEvent requestAllCurrentPostsEvent);
-
     public PostDetailsEvent requestPostDetails(RequestPostDetailsEvent requestPostDetailsEvent);
 
     public PostCreatedEvent createPost(CreatePostEvent createPostEvent);

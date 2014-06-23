@@ -1,18 +1,20 @@
 package com.backend.core.service;
 
+import com.backend.config.JPAConfig;
 import com.backend.core.domain.Post;
 import com.backend.core.events.posts.*;
 import com.backend.core.repository.PostsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@ContextConfiguration(classes = {JPAConfig.class})
 public class PostEventHandler implements PostService {
 
-    private final PostsRepository postsRepository;
+    @Autowired
+    private PostsRepository postsRepository;
 
-    public PostEventHandler(final PostsRepository postsRepository) {
-        this.postsRepository = postsRepository;
+    public PostEventHandler() {
+
     }
 
     @Override
@@ -24,15 +26,8 @@ public class PostEventHandler implements PostService {
     }
 
     @Override
-    public AllPostsEvent requestAllPosts(RequestAllPostsEvent requestAllCurrentPostsEvent) {
-        List<Post> generatedPosts = new ArrayList<Post>();
-
-        return new AllPostsEvent(postsRepository.findAll());
-    }
-
-    @Override
     public PostDetailsEvent requestPostDetails(RequestPostDetailsEvent requestPostDetailsEvent) {
-        Post post = postsRepository.findById(requestPostDetailsEvent.getUid());
+        Post post = postsRepository.findByUid(requestPostDetailsEvent.getUid());
 
         if (post == null) {
             return PostDetailsEvent.notFound(requestPostDetailsEvent.getUid());
@@ -43,7 +38,7 @@ public class PostEventHandler implements PostService {
 
     @Override
     public PostDeletedEvent deletePost(DeletePostEvent deletePostEvent) {
-        Post post = postsRepository.findById(deletePostEvent.getUid());
+        Post post = postsRepository.findByUid(deletePostEvent.getUid());
 
         if (post == null) {
             return PostDeletedEvent.notFound(deletePostEvent.getUid());
